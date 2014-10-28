@@ -1,0 +1,16 @@
+{
+  "name": "gb-merge",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nickclaw/gb-merge",
+  "authors": [
+    "Nicholas Clawson <nickclaw@gmail.com>"
+  ],
+  "description": "An applet to merge Canvas gradebook files with external spreadsheets",
+  "main": "src/index.html",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "papa-parse": "~3.1.3"
+  }
+}
