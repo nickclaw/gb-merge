@@ -1,0 +1,14 @@
+Test Gradebook,,,,,,,
+Exported 10/24/2014  1:35 PM,,,,,,,Category,Quizzes
+Username,Last Name,First Name M.,Student Number,Section/Group,Status,Notes,Assignment,A,B,C,D,Total Score,Class Grade
+,,,,,,,Grading scale,Points,Points,Points,Points,Percentage,Text
+,,,,,,,Points Possible, 15, 22, 19, 25,,
+nickclaw,Clawson,Nicholas R,1126819,A,Active,,,1,2,3,4,,
+dhurley,Dave,Hurley,1234567,B,Active,,,4,3,1,1,,
+,,,,,,,
+,,,,,,,Mean
+,,,,,,,Median
+,,,,,,,Mode
+,,,,,,,Min
+,,,,,,,Max
+,,,,,,,Std. Dev.
