@@ -2,8 +2,16 @@
 
     window.Gradebook = Gradebook;
 
+    //
+    // Constants
+    //
+    var STUDENT_HEADERS = ["Username", "Last Name", "First Name M.",
+                           "Student Number", "Section/Group", "Status",
+                           "Notes"];
+
     function Gradebook(data) {
         this.name = getName(data);
+        this.exported = getExported(data);
         this.assignments = getAssignments(data);
         this.students = getStudents(data);
     }
@@ -50,7 +58,7 @@
                 _.each(student.slice(1), function(score, i) {
 
                     // match it up with a name
-                    var assignmentName = newAssignements[i];
+                    var assignmentName = newAssignments[i];
 
                     // and overwrite saved score
                     students[id][assignmentName] = score;
@@ -64,11 +72,52 @@
          * @return {Array}
          */
         format: function() {
-            console.log(this);
-            return [];
+            var x = 8 + _.size(this.assignments) + 2,
+                y = 5 + _.size(this.students) + 7,
+                matrix = createMatrix(y, x);
+
+            //
+            // Header
+            //
+            matrix[0][0] = this.name;
+            matrix[1][0] = this.exported;
+            matrix[1][7] = "Category";
+
+            _.each(STUDENT_HEADERS, function(header, i) {
+                matrix[2][i] = header;
+            });
+
+            matrix[2][STUDENT_HEADERS.length] = "Assignment";
+
+            _.each(this.assignments, function(assignment, i) {
+                matrix[2][STUDENT_HEADERS.length + 1 + i] = assignment;
+            });
+
+            //
+            // Students
+            //
+            _.each(_.values(this.students), function(student, i) {
+
+                _.each(matrix[2], function(header, j) {
+                    matrix[5 + i][j] = student[header];
+                });
+            });
+
+            return matrix;
         }
     });
 
+    /**
+     * Creates a 2 dimensional matrix with a given size
+     * @param {Integer} y
+     * @param {Integer} x
+     * @return {Array.<Array>}
+     */
+    function createMatrix(y, x) {
+        return _.map(new Array(y), function() {
+            return new Array(x);
+        });
+    }
 
     /**
      * Extracts the name of the gradebook
@@ -78,6 +127,16 @@
      */
     function getName(raw) {
         return raw[0][0] || "";
+    }
+
+    /**
+     * Extracts the export date of the gradebook
+     * @private
+     * @param {Array} raw - raw data from papaparse
+     * @return {String}
+     */
+    function getExported(raw) {
+        return raw[1][0];
     }
 
     /**
