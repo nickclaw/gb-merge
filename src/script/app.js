@@ -40,7 +40,16 @@
             // merge each file in order
             _.each(files, gradebook.merge, gradebook);
 
-            console.log(gradebook.format());
+            var blob = new Blob([
+                Papa.unparse(gradebook.format())
+            ]);
+
+            var link = document.createElement('a');
+            link.setAttribute('download', gradebook.name + '.csv');
+            link.setAttribute('href', URL.createObjectURL(blob));
+            link.text = "Download!";
+
+            document.querySelector("#output").appendChild(link);
         }
 
         handle();
