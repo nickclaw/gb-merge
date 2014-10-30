@@ -5,19 +5,28 @@
         <link href="style/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+
         <div id="header">
-            <img id="logo" src="image/uwlogo.png">
-            <a>Gradebook Merge</a>
-        </div>
-        <div id="input">
-            <div id="gradebook">
-
-            </div>
-            <div id="external">
-
+            <div class="container">
+                <img id="logo" src="image/uwlogo.png">
+                <a>Gradebook Merge</a>
             </div>
         </div>
-        <div id="output">
+        <div id="container" class="container">
+
+            <div id="top">
+                <div id="gradebook">
+
+                </div>
+                <div id="external">
+
+                </div>
+            </div>
+            <div id="bottom">
+                <div id="output">
+
+                </div>
+            </div>
 
         </div>
 
@@ -26,5 +35,28 @@
         <script src="script/app.js"></script>
         <script src="script/Uploader.js"></script>
         <script src="script/Gradebook.js"></script>
+
+        <script type="text/template" id="uploader">
+            <div class="inner">
+                <h2 ><%- title %><hr></h2>
+                <ul class="files">
+
+                </ul>
+                <label class="button">
+                    <hr>
+                    Add <%- multiple ? "Files" : "A File" %>
+                    <input type="file" <%- multiple ? 'multiple' : '' %>
+                </label>
+            </div>
+        </script>
+
+        <script type="text/template" id="uploader_files">
+            <% _.each(files, function(file, i) { %>
+                <li>
+                    <span class="name"><%- file.file.name %></span>
+                    <span class="remove" data-index="<%- i %>">remove</span>
+                </li>
+            <% }); %>
+        </script>
     </body>
 </html>

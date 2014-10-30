@@ -20,8 +20,7 @@
 
         // save/create important elements
         this.container = _.isString(container) ? document.querySelector(container) : container;
-        this.input = document.createElement('input');
-        this.label = document.createElement('label');
+        this.parsedFiles = [];
 
         this._createElements();
         this._addListeners();
@@ -60,13 +59,9 @@
          */
         parse: function(files, callback) {
 
-            var multiple = this.options.multiple;
-
             // will call the callback after called
             // for each file
-            var done = _.after(files.length + 1, function() {
-                callback(multiple ? parsedFiles : parsedFiles[0]);
-            });
+            var done = _.after(files.length + 1, callback);
 
             // lazily map files by returning an empty
             // object and filling it later, wait until
@@ -75,6 +70,7 @@
             // before calling the callback
             var parsedFiles = _.map(files, function(file) {
                 var data = {
+                    file: file,
                     data: undefined,
                     error: undefined
                 };
@@ -86,7 +82,7 @@
                 var error = this.validate(file);
                 if (error) {
                     data.error = error;
-                    _.defer(done);
+                    _.defer(done, parsedFiles);
                     return data;
                 }
 
@@ -101,7 +97,7 @@
                             data.data = results.data;
                         }
 
-                        done();
+                        done(parsedFiles);
                     }
                 });
 
@@ -110,7 +106,7 @@
 
             // if there are no files at all
             // this will make the callback call
-            done();
+            done([]);
         },
 
         /**
@@ -118,23 +114,14 @@
          * @private
          */
         _createElements: function() {
-            var container = this.container,
-                input = this.input,
-                label = this.label;
+            var container = this.container;
 
-            // add classes/settings
             container.classList.add('uploader');
-            input.id = _.uniqueId('input-');
-            input.type = 'file';
-            label.for = input.id;
 
-            if (this.options.multiple) {
-                input.multiple = "multiple";
-            }
-
-            // append children
-            container.appendChild(input);
-            container.appendChild(label);
+            container.innerHTML = a = _.template(document.querySelector("#uploader").textContent, {
+                title: this.options.title,
+                multiple: this.options.multiple
+            });
         },
 
         /**
@@ -142,33 +129,60 @@
          * @private
          */
         _addListeners: function() {
-            this.label.addEventListener('dragenter', function() {
+            var container = this.container,
+                inner = container.querySelector('.inner'),
+                input = container.querySelector('input');
 
+            inner.addEventListener('dragenter', function(evt) {
+                inner.classList.add('droppable');
             });
 
-            this.label.addEventListener('dragleave', function() {
-
+            inner.addEventListener('dragleave', function() {
+                inner.classList.remove('droppable');
             });
 
-            this.label.addEventListener('dragover', function(evt) {
+            inner.addEventListener('dragover', function(evt) {
                 evt.preventDefault();
             });
 
             var self = this;
-            this.label.addEventListener('drop', function(evt) {
+            inner.querySelector('ul').addEventListener('click', function(evt) {
+                if (!evt.target.classList.contains('remove')) return;
+
+                var i = parseInt(evt.target.getAttribute('index'));
+
+                self.parsedFiles.splice(i, 1);
+
+                self._update(self.parsedFiles);
+            });
+
+            inner.addEventListener('drop', function(evt) {
                 evt.preventDefault();
+                inner.classList.remove('droppable');
                 self.parse(
                     _.toArray(evt.dataTransfer.files),
-                    self.options.onUpload
+                    self._update.bind(self)
                 );
             });
 
-            this.input.addEventListener('change', function(evt) {
+            input.addEventListener('change', function(evt) {
                 self.parse(
                     _.toArray(this.files),
-                    self.options.onUpload
+                    self._update.bind(self)
                 );
             });
+        },
+
+        _update: function(parsedFiles) {
+            parsedFiles = this.options.multiple ? parsedFiles : parsedFiles.slice(1);
+            this.parsedFiles = parsedFiles;
+
+            var template = document.querySelector("#uploader_files").textContent;
+            this.container.querySelector('ul').innerHTML = _.template(template, {
+                files: parsedFiles
+            });
+
+            this.options.onUpload(this.options.multiple ? parsedFiles : parsedFiles[0]);
         }
     });
 

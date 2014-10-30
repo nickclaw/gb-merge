@@ -13,6 +13,7 @@
 
         new Uploader({
             container: "#gradebook",
+            title: 'Gradebook',
             onUpload: function(result) {
                 gradebook = new Gradebook(result.data);
                 handle();
@@ -22,6 +23,7 @@
         new Uploader({
             container: "#external",
             multiple: true,
+            title: 'Grades',
             onUpload: function(results) {
                 files = _.map(results, function(result) { return result.data; });
                 handle();
