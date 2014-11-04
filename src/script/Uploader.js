@@ -82,7 +82,9 @@
                 var error = this.validate(file);
                 if (error) {
                     data.error = error;
-                    _.defer(done, parsedFiles);
+                    _.defer(function() {
+                        done(parsedFiles);
+                    });
                     return data;
                 }
 
@@ -149,7 +151,7 @@
             inner.querySelector('ul').addEventListener('click', function(evt) {
                 if (!evt.target.classList.contains('remove')) return;
 
-                var i = parseInt(evt.target.getAttribute('index'));
+                var i = parseInt(evt.target.getAttribute('data-index'));
 
                 self.parsedFiles.splice(i, 1);
 
@@ -174,7 +176,7 @@
         },
 
         _update: function(parsedFiles) {
-            parsedFiles = this.options.multiple ? parsedFiles : parsedFiles.slice(1);
+            parsedFiles = this.options.multiple ? parsedFiles : parsedFiles.slice(0, 1);
             this.parsedFiles = parsedFiles;
 
             var template = document.querySelector("#uploader_files").textContent;

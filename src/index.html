@@ -3,6 +3,7 @@
     <head>
         <title>Gradebook Merger</title>
         <link href="style/style.css" rel="stylesheet" type="text/css" />
+        <link href="style/css-tooltips.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
 
@@ -13,21 +14,17 @@
             </div>
         </div>
         <div id="container" class="container">
-
-            <div id="top">
                 <div id="gradebook">
 
                 </div>
                 <div id="external">
 
                 </div>
-            </div>
-            <div id="bottom">
                 <div id="output">
-
+                    <h2 id="checkGrade">1. Add gradebook file.</h2>
+                    <h2 id="checkScore">2. Add grade files.</h2>
+                    <h2 id="checkDownload">3. <a id="download">Download.</a></h2>
                 </div>
-            </div>
-
         </div>
 
         <script src="../lib/lodash/dist/lodash.js"></script>
@@ -52,7 +49,7 @@
 
         <script type="text/template" id="uploader_files">
             <% _.each(files, function(file, i) { %>
-                <li>
+                <li <% if (file.error) { %> class="error tip-below" <% } %> data-tip="<%- file.error %>" >
                     <span class="name"><%- file.file.name %></span>
                     <span class="remove" data-index="<%- i %>">remove</span>
                 </li>
