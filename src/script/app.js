@@ -12,6 +12,10 @@
             container: "#gradebook",
             title: 'Gradebook',
             types: ['text/csv'],
+            transform: function(data) {
+                new Gradebook(data); // hack to throw error if gradebook is invalid
+                return data;
+            },
             onUpload: function(result) {
                 gradebookFile = result;
                 handle();
@@ -28,6 +32,8 @@
                 handle();
             }
         });
+
+        handle();
 
         /**
          * The function to actually try and merge the gradebook with the files
@@ -76,8 +82,6 @@
             link.setAttribute('download', gradebook.name + '.csv');
             link.setAttribute('href', URL.createObjectURL(blob));
         }
-
-        handle();
     }
 
 })();

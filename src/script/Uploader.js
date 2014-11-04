@@ -7,7 +7,8 @@
         multiple: false,
         onUpload: noop,
         types: [],
-        maxSize: 0
+        maxSize: 0,
+        transform: null
     };
 
     function Uploader(options) {
@@ -61,7 +62,8 @@
 
             // will call the callback after called
             // for each file
-            var done = _.after(files.length + 1, callback);
+            var done = _.after(files.length + 1, callback),
+                self = this;
 
             // lazily map files by returning an empty
             // object and filling it later, wait until
@@ -79,7 +81,7 @@
                 // if the file is the wrong type
                 // or is too big, don't bother
                 // parsing
-                var error = this.validate(file);
+                var error = self.validate(file);
                 if (error) {
                     data.error = error;
                     _.defer(function() {
@@ -99,12 +101,21 @@
                             data.data = results.data;
                         }
 
+                        if (self.options.transform && !data.error) {
+                            try {
+                                data.data = self.options.transform(data.data);
+                                data.error = undefined;
+                            } catch (e) {
+                                data.error = e.message;
+                            }
+                        }
+
                         done(parsedFiles);
                     }
                 });
 
                 return data;
-            }, this);
+            });
 
             // if there are no files at all
             // this will make the callback call
