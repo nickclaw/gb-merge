@@ -131,7 +131,7 @@
 
             container.classList.add('uploader');
 
-            container.innerHTML = a = _.template(document.querySelector("#uploader").textContent, {
+            container.innerHTML = a = JST['src/template/uploader.jst']({
                 title: this.options.title,
                 multiple: this.options.multiple
             });
@@ -190,8 +190,7 @@
             parsedFiles = this.options.multiple ? parsedFiles : parsedFiles.slice(0, 1);
             this.parsedFiles = parsedFiles;
 
-            var template = document.querySelector("#uploader_files").textContent;
-            this.container.querySelector('ul').innerHTML = _.template(template, {
+            this.container.querySelector('ul').innerHTML = JST['src/template/list.jst']({
                 files: parsedFiles
             });
 

@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "gb-merge",
+    "description": "Merge Canvas gradebook files.",
+    "version": "0.1",
+
+    "app": {
+        "launch": {
+            "local_path": "index.html",
+            "container": "panel",
+            "width": 850,
+            "height": 525
+        }
+    }
+}

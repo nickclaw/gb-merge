@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                     destPrefix: 'build/lib'
                 },
                 files: {
-                    'lodash.js': 'lodash/dist/lodash.min.js',
+                    'lodash.js': 'lodash/dist/lodash.js',
                     'papaparse.js': 'papa-parse/papaparse.min.js',
                     'css-tooltips.css': 'css-tooltips/css-tooltips.css'
                 }
@@ -63,6 +63,13 @@ module.exports = function(grunt) {
                     expand: true,
                     flatten: false
                 }]
+            },
+
+            other: {
+                files: {
+                    'build/startup.js': 'src/startup.js',
+                    'build/manifest.json': 'src/manifest.json'
+                }
             }
         },
 
@@ -79,7 +86,7 @@ module.exports = function(grunt) {
 
             script: {
                 files: 'src/**/*.js',
-                tasks: ['concat']
+                tasks: ['concat', 'copy:other']
             }
 
         },
@@ -128,6 +135,14 @@ module.exports = function(grunt) {
                     flatten: false
                 }]
             }
+        },
+
+        jst: {
+            dist: {
+                files: {
+                    'build/script/templates.js': 'src/template/**/*.jst'
+                }
+            }
         }
 
     });
@@ -141,13 +156,16 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bowercopy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-contrib-jst');
 
     grunt.registerTask('default', [
         'sass',
         'uglify',
         'bowercopy',
         'htmlmin',
-        'imagemin'
+        'imagemin',
+        'copy:other',
+        'jst'
     ]);
 
     grunt.registerTask('develop', [
@@ -156,6 +174,7 @@ module.exports = function(grunt) {
         'bowercopy',
         'copy:html',
         'copy:image',
+        'copy:other',
         'concurrent:watch'
     ]);
 };

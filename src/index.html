@@ -30,29 +30,7 @@
 
         <script src="lib/lodash.js"></script>
         <script src="lib/papaparse.js"></script>
+        <script src="script/templates.js"></script>
         <script src="script/main.js"></script>
-
-        <script type="text/template" id="uploader">
-            <div class="inner">
-                <h2 ><%- title %><hr></h2>
-                <ul class="files">
-
-                </ul>
-                <label class="button">
-                    <hr>
-                    Add <%- multiple ? "Files" : "A File" %>
-                    <input type="file" <%- multiple ? 'multiple' : '' %>
-                </label>
-            </div>
-        </script>
-
-        <script type="text/template" id="uploader_files">
-            <% _.each(files, function(file, i) { %>
-                <li <% if (file.error) { %> class="error tip-below" data-tip="<%- file.error %>" <% } %> >
-                    <span class="name"><%- file.file.name %></span>
-                    <span class="remove" data-index="<%- i %>">remove</span>
-                </li>
-            <% }); %>
-        </script>
     </body>
 </html>
