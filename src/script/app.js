@@ -64,7 +64,9 @@
 
 
             // don't merge if not ready
+            item = document.querySelector('#checkDownload');
             if (!ready) {
+                item.classList.remove('ready');
                 link.removeAttribute('download');
                 link.removeAttribute('href');
                 return;
@@ -79,6 +81,7 @@
             var blob = new Blob([
                 Papa.unparse(gradebook.format())
             ]);
+            item.classList.add('ready');
             link.setAttribute('download', gradebook.name + '.csv');
             link.setAttribute('href', URL.createObjectURL(blob));
         }

@@ -1,0 +1,26 @@
+{
+  "name": "gb-merge",
+  "version": "0.1.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickclaw/gb-merge.git"
+  },
+  "author": "Nicholas Clawson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickclaw/gb-merge/issues"
+  },
+  "homepage": "https://github.com/nickclaw/gb-merge",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-sass": "~0.8.1",
+    "grunt-contrib-imagemin": "~0.9.1",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-contrib-htmlmin": "~0.3.0",
+    "grunt-bowercopy": "~1.1.0"
+  }
+}
