@@ -17,12 +17,7 @@
         if (this.exported.indexOf('Exported') !== 0) throw new Error("Invalid format.");
 
         this.studentOrder = getOrder(data);
-
-        // all dropped students end up on the "" key
-        // delete that key and clear all unknown keys from studentOrder
         this.students = getStudents(data);
-        delete this.students[""];
-        this.studentOrder = _.intersection(_.keys(this.students), this.studentOrder);
 
         console.log(this);
     }
@@ -84,7 +79,7 @@
          */
         format: function() {
             var x = _.size(this.assignments),
-                y = _.size(this.students) + 2,
+                y = _.size(this.studentOrder) + 1,
                 matrix = createMatrix(y, x);
 
             _.each(this.assignments, function(assignment, i) {
