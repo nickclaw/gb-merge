@@ -88,11 +88,15 @@
 
 
             _.each(this.studentOrder, function(id, i) {
-                var student = this.students[id];
-                matrix[1 + i][0] = id;
+                if (id === ""){
+                    matrix[1 + i][0] = "";
+                } else {
+                    var student = this.students[id];
+                    matrix[1 + i][0] = id;
+                }
 
                 _.each(this.assignments, function(assignment, j) {
-                    matrix[1 + i][j + 1] = student[assignment];
+                    matrix[1 + i][j + 1] = student ? student[assignment] : "";
                 });
             }, this);
 
