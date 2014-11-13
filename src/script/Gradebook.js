@@ -13,7 +13,18 @@
         this.name = getName(data);
         this.exported = getExported(data);
         this.assignments = getAssignments(data);
+
+        if (this.exported.indexOf('Exported') !== 0) throw new Error("Invalid format.");
+
+        this.studentOrder = getOrder(data);
+
+        // all dropped students end up on the "" key
+        // delete that key and clear all unknown keys from studentOrder
         this.students = getStudents(data);
+        delete this.students[""];
+        this.studentOrder = _.intersection(_.keys(this.students), this.studentOrder);
+
+        console.log(this);
     }
 
     _.extend(Gradebook.prototype, {
@@ -72,36 +83,23 @@
          * @return {Array}
          */
         format: function() {
-            var x = 8 + _.size(this.assignments) + 2,
-                y = 5 + _.size(this.students) + 7,
+            var x = _.size(this.assignments),
+                y = _.size(this.students) + 2,
                 matrix = createMatrix(y, x);
 
-            //
-            // Header
-            //
-            matrix[0][0] = this.name;
-            matrix[1][0] = this.exported;
-            matrix[1][7] = "Category";
-
-            _.each(STUDENT_HEADERS, function(header, i) {
-                matrix[2][i] = header;
-            });
-
-            matrix[2][STUDENT_HEADERS.length] = "Assignment";
-
             _.each(this.assignments, function(assignment, i) {
-                matrix[2][STUDENT_HEADERS.length + 1 + i] = assignment;
+                matrix[0][1 + i] = assignment;
             });
 
-            //
-            // Students
-            //
-            _.each(_.values(this.students), function(student, i) {
 
-                _.each(matrix[2], function(header, j) {
-                    matrix[5 + i][j] = student[header];
+            _.each(this.studentOrder, function(id, i) {
+                var student = this.students[id];
+                matrix[1 + i][0] = id;
+
+                _.each(this.assignments, function(assignment, j) {
+                    matrix[1 + i][j + 1] = student[assignment];
                 });
-            });
+            }, this);
 
             return matrix;
         }
@@ -151,6 +149,16 @@
             endIndex = row.indexOf('Total Score');
 
         return row.slice(startIndex + 1, endIndex);
+    }
+
+    function getOrder(raw) {
+
+        var lastRow = _.findIndex(raw, function(v, i) { return i > 5 && v[0] === ""; }),
+            students = raw.slice(5, lastRow);
+
+        return _.map(students, function(student) {
+            return student[3];
+        });
     }
 
     /**
