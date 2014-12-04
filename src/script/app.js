@@ -11,7 +11,7 @@
         new Uploader({
             container: "#gradebook",
             title: 'Gradebook',
-            types: ['text/csv'],
+            types: [],
             transform: function(data) {
                 new Gradebook(data); // hack to throw error if gradebook is invalid
                 return data;
@@ -26,7 +26,7 @@
             container: "#external",
             multiple: true,
             title: 'Grades',
-            types: ['text/csv'],
+            types: [],
             onUpload: function(results) {
                 externalFiles = results;
                 handle();
