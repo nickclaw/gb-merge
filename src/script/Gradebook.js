@@ -58,6 +58,10 @@
 
                 // get the id, if student no longer in gradebook, ignore
                 var id = student[0];
+
+                // add padding to shorter ids
+                while (id.length < 7) id = "0" + id;
+
                 if (!students[id]) return;
 
                 // otherwise, go through each score
@@ -85,7 +89,6 @@
             _.each(this.assignments, function(assignment, i) {
                 matrix[0][1 + i] = assignment;
             });
-
 
             _.each(this.studentOrder, function(id, i) {
                 if (id === ""){
