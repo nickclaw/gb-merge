@@ -1,198 +1,74 @@
+@import "flex";
+@import "grid";
+@import "expand";
+@import "section";
+
 * {
-    padding: 0px;
     margin: 0px;
+    padding: 0px;
     box-sizing: border-box;
     position: relative;
-    font-family: sans-serif;
 }
 
-body, html {
-    width: 100%;
+body, html, .section {
     height: 100%;
-}
-
-.container {
-    width: 800px;
-    margin: 0 auto;
-}
-
-#header {
-    height: 50px;
     width: 100%;
-    position: fixed;
-    top: 0px;
-    z-index: 2;
-
-    background-color: white;
-    box-shadow: 0px 2px 5px rgba(200,200,200,.5);
-
-    #logo, a {
-        height: 40px;
-        margin: 5px;
-        display: inline-block;
-    }
-
-    a {
-        height: 30px;
-        position: relative;
-        bottom: 8px;
-        color: #4b2e83;
-        line-height: 40px;
-        font-size: 20px;
-        text-decoration: none;
-    }
-
-    .h1 {
-        font-size: 30px;
-        margin-right: 20px;
-    }
 }
 
-#container {
-    min-height: 100%;
-    padding-top: 50px;
-
-    background-color: #F0EDE3;
-    box-shadow: 0px 0px 5px rgba(100,100,100,.5);
-
-    #gradebook, #external {
-        width: 50%;
-        float: left;
-    }
-
-    #gradebook .inner {
-        margin: 10% 6.66% 10% 13.33%;
-    }
-
-    #external .inner {
-        margin: 10% 13.33% 10% 6.66%;
-    }
+body {
+    font-family: sans-serif;
+    font-weight: thin;
+    font-size: 14pt;
 }
+.section {
 
-.inner {
-    margin: 10%;
+    height: 75%;
+    min-height: 300px;
 
-    background-color: white;
-    box-shadow: 0px 2px 3px rgba(200,200,200,.4);
-
-    h2 {
-        color: rgba(100,100,100,.9);
-        margin: 5% 5% 0% 5%;
-        padding: 10px 0px;
-
-        hr {
-            width: 100%;
-            border-color: rgba(200,200,200,.5);
-        }
+    .side {
+        width: 250px;
+        border-right: solid black 15px;
+        text-align: center;
     }
 
-    ul {
-        list-style: none;
-        height: 100px;
-        overflow-y: scroll;
-
-        li {
-            color: rgba(100,100,100,.9);
-            width: 80%;
-            margin: 5px auto;
-
-            &.error {
-                color: red;
-                text-decoration: underline;
-            }
-
-            .remove {
-                cursor: pointer;
-                float: right;
-                font-size: 80%;
-                color: rgba(100,100,100,.9);
-
-                &:hover {
-                    color: rgba(50,50,50,.9);
-                    text-decoration: underline;
-                }
-            }
-        }
-
-        .name {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 80%;
-            display: inline-block;
-        }
+    .gridContainer {
+        overflow: scroll;
     }
 
-    .button {
+    .image {
+        width: 64px;
+        height: 64px;
+        margin: 50px auto 10px auto;
+    }
+
+    p {
         display: block;
-        width: 100%;
-        height: 40px;
-        cursor: pointer;
-        color: rgba(100,100,100,.9);
-
-        padding: 10px 20px;
-
-        &:hover {
-            color: rgba(50,50,50,.9);
-
-            hr {
-                border-color: rgba(100,100,100,.5);
-            }
-        }
-
-        hr {
-            position: absolute;
-            top: 0px;
-            width: 90%;
-            left: 5%;
-            border-color: rgba(200,200,200,.5);
-        }
-
-        input {
-            display: none;
-        }
+        font-size: 1.2rem;
+        font-weight: thin;
+        margin: 10px auto;
+        width: 200px;
     }
 }
 
-.inner.droppable {
+
+div[upload] {
+    text-align: center;
+    max-width: 60%;
+    padding: 15px;
+    margin: 10% auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 1px 5px rgba(200,200,200,.5);
+    cursor: pointer;
+
+    transition: all .5s ease;
+
+    &:hover {
+        box-shadow: 0px 2px 7px rgba(200,200,200,.5);
+        top: -1px;
+    }
 
     * {
-        pointer-events: none;
-    }
-
-    ul li {
-        opacity: 0;
-    }
-
-    &:after {
-        content: "drop files";
-        display: block;
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        text-align: center;
-        text-weight: bolder;
-    }
-}
-
-#output {
-    background-color: white;
-    box-shadow: 0px 2px 3px rgba(200,200,200,.4);
-    width: 50%;
-    margin: 0 auto;
-    clear: left;
-
-    padding: 1px 0px;
-
-    h2 {
-        color: rgba(100,100,100,.9);
-        margin: 5%;
-    }
-
-    h2.ready {
-        background-image: url(../image/checkmark.png);
-        background-size: 20px;
-        background-repeat: no-repeat;
-        background-position: 90% 50%;
+        cursor: pointer;
     }
 }

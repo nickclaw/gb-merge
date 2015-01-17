@@ -1,6 +1,0 @@
-<% _.each(files, function(file, i) { %>
-    <li <% if (file.error) { %> class="error tip-below" data-tip="<%- file.error %>" <% } %> >
-        <span class="name"><%- file.file.name %></span>
-        <span class="remove" data-index="<%- i %>">remove</span>
-    </li>
-<% }); %>

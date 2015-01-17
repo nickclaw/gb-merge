@@ -1,0 +1,15 @@
+<div class="grid">
+    <div ng-if="!grid" ng-transclude>
+        Nothing to display.
+    </div>
+
+    <table ng-if="grid">
+        <tbody>
+            <tr ng-repeat="row in grid track by $index">
+                <td ng-repeat="column in row track by $index" title="{{column}}">
+                    <span>{{column}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

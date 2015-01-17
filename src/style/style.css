@@ -1,0 +1,131 @@
+[direction] {
+  display: flex !important;
+  justify-content: center; }
+
+[direction=horizontal] {
+  flex-direction: row; }
+
+[direction=vertical] {
+  flex-direction: column; }
+
+[align=start] {
+  justify-content: flex-start; }
+
+[align=end] {
+  justify-content: flex-end; }
+
+[align=between] {
+  justify-content: space-between; }
+
+[align=around] {
+  justify-content: space-around; }
+
+[flex="1"], [flex] {
+  flex: 1; }
+
+[flex="2"] {
+  flex: 2; }
+
+[flex="3"] {
+  flex: 3; }
+
+[flex="4"] {
+  flex: 4; }
+
+[flex="5"] {
+  flex: 5; }
+
+[flex="6"] {
+  flex: 6; }
+
+.gridContainer {
+  background-image: url(../image/grid.png); }
+
+.grid table {
+  border-collapse: collapse; }
+.grid td {
+  border: solid 1px #c8c8c8;
+  overflow: hidden;
+  max-width: 130px;
+  padding: 5px; }
+  .grid td span {
+    padding: 4px;
+    white-space: nowrap; }
+  .grid td, .grid td span {
+    background-color: white;
+    font-size: 1.2rem; }
+.grid tr:nth-child(2n - 1) td, .grid tr:nth-child(2n - 1) td span {
+  background-color: #f0f4f9; }
+.grid td:hover {
+  overflow: visible;
+  z-index: 10; }
+  .grid td:hover, .grid td:hover span {
+    background-color: #f0f0f0 !important; }
+
+.expand {
+  height: auto;
+  opacity: 1;
+  transition: opacity .1s linear, height .15s ease; }
+  .expand.expand-collapsed {
+    opacity: 0; }
+
+.section .header {
+  background-color: black;
+  color: white; }
+.section h2 {
+  display: inline-block;
+  padding: 10px; }
+.section .toggle {
+  float: right;
+  background-color: white; }
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  position: relative; }
+
+body, html, .section {
+  height: 100%;
+  width: 100%; }
+
+body {
+  font-family: sans-serif;
+  font-weight: thin;
+  font-size: 14pt; }
+
+.section {
+  height: 75%;
+  min-height: 300px; }
+  .section .side {
+    width: 250px;
+    border-right: solid black 15px;
+    text-align: center; }
+  .section .gridContainer {
+    overflow: scroll; }
+  .section .image {
+    width: 64px;
+    height: 64px;
+    margin: 50px auto 10px auto; }
+  .section p {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: thin;
+    margin: 10px auto;
+    width: 200px; }
+
+div[upload] {
+  text-align: center;
+  max-width: 60%;
+  padding: 15px;
+  margin: 10% auto;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 1px 5px rgba(200, 200, 200, 0.5);
+  cursor: pointer;
+  transition: all .5s ease; }
+  div[upload]:hover {
+    box-shadow: 0px 2px 7px rgba(200, 200, 200, 0.5);
+    top: -1px; }
+  div[upload] * {
+    cursor: pointer; }

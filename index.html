@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <title>Gradebook Merger</title>
+        <link href="src/style/style.css" rel="stylesheet" type="text/css" />
+        <link href="lib/css-tooltips/css-tooltips.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body ng-controller="MainController ">
+
+        <!-- gradebook -->
+        <section name="Gradebook Merger">
+            <div flex class="container" direction="horizontal" droppable="parse('gradebook', files)">
+                <div class="side" direction="vertical" align="start">
+                    <img src="src/image/upload.png" class="image" />
+                    <p class="info">
+                        Add and review your original gradebook .csv file.
+                    </p>
+                    <p ng-if="errors.gradebook" class="error">{{errors.gradebook}}</p>
+                </div>
+                <div class="gridContainer" flex=1 grid="gradebook">
+                    <div upload="parse('gradebook', files)">Drag and drop file or click here to upload gradebook.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- grades -->
+        <section name="Grades" >
+            <div flex class="container" direction="horizontal" droppable="parse('grades', files)">
+                <div class="side" direction="vertical" align="start">
+                    <img src="src/image/add.png" class="image" />
+                    <p class="info">Upload grade file.</p>
+                    <p ng-if="errors.grades" class="error">{{errors.grades}}</p>
+                </div>
+                <div class="gridContainer" flex=1 grid="grades" >
+                    <div upload="parse('grades', files)">Drag and drop file or click here to upload grades.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- output -->
+        <section name="Output">
+            <div flex class="container" direction="horizontal">
+                <div class="side" direction="vertical" align="start">
+                    <img src="src/image/download.png" class="image" />
+                    <p class="info">Download the merge gradebook.<p>
+                    <a ng-if="dataUrl" download="gradebook.csv" ng-href="{{dataUrl}}">Download</a>
+                    <p ng-if="errors.output" class="error">{{errors.output}}</p>
+                </div>
+                <div class="gridContainer" flex=1 grid="output">
+
+                </div>
+            </div>
+        </section>
+
+
+        <script src="lib/lodash/dist/lodash.js"></script>
+        <script src="lib/papa-parse/papaparse.js"></script>
+        <script src="lib/angular/angular.js"></script>
+
+        <script src="src/script/app.js"></script>
+    </body>
+</html>

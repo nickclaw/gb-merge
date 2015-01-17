@@ -1,0 +1,10 @@
+.expand {
+    height: auto;
+    opacity: 1;
+
+    transition: opacity .1s linear, height .15s ease;
+
+    &.expand-collapsed {
+        opacity: 0;
+    }
+}
