@@ -90,6 +90,7 @@ angular.module('app', [])
         return {
             restrict: 'A',
             transclude: true,
+            replace: true,
             template: '<label><input style="display: none;" type="file" /><div ng-transclude></div></label>',
             scope: {
                 'upload': '&'
