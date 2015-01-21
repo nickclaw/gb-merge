@@ -21,7 +21,7 @@ angular.module('app', ['ui.grid'])
             link: function($scope, elem) {
                 $scope.expanded = true;
 
-                // hack becaue jqLite#find cna't take class names
+                // hack becaue jqLite#find can't take class names
                 elem.find('span').on('click', function() {
                     $scope.expanded = !$scope.expanded;
                     $scope.$digest();
@@ -205,7 +205,7 @@ angular.module('app', ['ui.grid'])
             /*
              * build list of students like:
              * {
-             *    "last, first": {'Student': 'last, first', 'ID': '123432'...}
+             *    "netid": {'Student': 'last, first', 'ID': '123432'...}
              * }
              *
              * but keep order in seperate array
@@ -214,7 +214,7 @@ angular.module('app', ['ui.grid'])
             var studentOrder = [];
             _.each(gradebook.slice(2), function(student) {
                 studentOrder.push(student[0].toLowerCase());
-                students[student[0].toLowerCase()] = _.zipObject(gradebook[0], student);
+                students[student[assignments['SIS Login ID']].toLowerCase()] = _.zipObject(gradebook[0], student);
             });
 
 
@@ -222,7 +222,10 @@ angular.module('app', ['ui.grid'])
                 // merge scores of students with grade file
                 var newAssignments = grades[0].slice(1);
                 _.each(grades.slice(1), function(row) {
-                    var name = row[0].toLowerCase();
+
+                    // split on the @ sign so teachers can easily make
+                    // student uw emails instead of netids
+                    var name = row[0].toLowerCase().split('@')[0];
 
                     _.each(row.slice(1), function(score, index) {
                         if (!students[name]) {
