@@ -1,5 +1,4 @@
 @import "flex";
-@import "grid";
 @import "expand";
 @import "section";
 
@@ -10,7 +9,7 @@
     position: relative;
 }
 
-body, html, .section {
+body, html {
     height: 100%;
     width: 100%;
 }
@@ -21,9 +20,6 @@ body {
     font-size: 14pt;
 }
 .section {
-
-    height: 75%;
-    min-height: 300px;
 
     .side {
         width: 250px;

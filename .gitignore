@@ -1,5 +1,6 @@
-lib/papa-parse
+lib/papaparse
 lib/lodash
+lib/angular-ui-grid
 
 .sass-cache
 build/*

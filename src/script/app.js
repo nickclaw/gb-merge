@@ -1,4 +1,4 @@
-angular.module('app', [])
+angular.module('app', ['ui.grid'])
 
 .config([
     '$compileProvider',
@@ -43,6 +43,27 @@ angular.module('app', [])
             templateUrl: 'src/template/grid.html',
             scope: {
                 grid: '='
+            },
+            link: function($scope, elem) {
+                $scope.gridOptions = {
+                    enableSorting: false,
+                    enableCellEditOnFocus: false,
+                };
+
+                $scope.$watch('grid', function() {
+                    if (!$scope.grid || !$scope.grid.length) return;
+                    $scope.gridOptions.columnDefs = _.map($scope.grid[0], function(text, index) {
+                        return {
+                            name: text,
+                            width: 150,
+                            type: 'string',
+                            field: index + ""
+                        };
+                    });
+
+                    $scope.gridOptions.data = $scope.grid.slice(1);
+                    console.log($scope.gridOptions.data);
+                });
             }
         };
     }
@@ -207,6 +228,11 @@ angular.module('app', [])
                     var name = row[0].toLowerCase();
 
                     _.each(row.slice(1), function(score, index) {
+                        if (!students[name]) {
+                            console.log('UHOH', name);
+                            return;
+                        }
+                        console.log('YAY', name);
                         students[name][newAssignments[index]] = score;
                     });
                 });

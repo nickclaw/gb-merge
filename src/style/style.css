@@ -38,30 +38,6 @@
 [flex="6"] {
   flex: 6; }
 
-.gridContainer {
-  background-image: url(../image/grid.png); }
-
-.grid table {
-  border-collapse: collapse; }
-.grid td {
-  border: solid 1px #c8c8c8;
-  overflow: hidden;
-  max-width: 130px;
-  padding: 5px; }
-  .grid td span {
-    padding: 4px;
-    white-space: nowrap; }
-  .grid td, .grid td span {
-    background-color: white;
-    font-size: 1.2rem; }
-.grid tr:nth-child(2n - 1) td, .grid tr:nth-child(2n - 1) td span {
-  background-color: #f0f4f9; }
-.grid td:hover {
-  overflow: visible;
-  z-index: 10; }
-  .grid td:hover, .grid td:hover span {
-    background-color: #f0f0f0 !important; }
-
 .expand {
   height: auto;
   opacity: 1;
@@ -85,7 +61,7 @@
   box-sizing: border-box;
   position: relative; }
 
-body, html, .section {
+body, html {
   height: 100%;
   width: 100%; }
 
@@ -94,25 +70,22 @@ body {
   font-weight: thin;
   font-size: 14pt; }
 
-.section {
-  height: 75%;
-  min-height: 300px; }
-  .section .side {
-    width: 250px;
-    border-right: solid black 15px;
-    text-align: center; }
-  .section .gridContainer {
-    overflow: scroll; }
-  .section .image {
-    width: 64px;
-    height: 64px;
-    margin: 50px auto 10px auto; }
-  .section p {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: thin;
-    margin: 10px auto;
-    width: 200px; }
+.section .side {
+  width: 250px;
+  border-right: solid black 15px;
+  text-align: center; }
+.section .gridContainer {
+  overflow: scroll; }
+.section .image {
+  width: 64px;
+  height: 64px;
+  margin: 50px auto 10px auto; }
+.section p {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: thin;
+  margin: 10px auto;
+  width: 200px; }
 
 label[upload] {
   display: block;
