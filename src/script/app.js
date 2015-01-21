@@ -62,7 +62,6 @@ angular.module('app', ['ui.grid'])
                     });
 
                     $scope.gridOptions.data = $scope.grid.slice(1);
-                    console.log($scope.gridOptions.data);
                 });
             }
         };
@@ -173,7 +172,7 @@ angular.module('app', ['ui.grid'])
                     $scope.$digest();
                 },
                 error: function(results) {
-                    console.log('error', results);
+                    $scope.errors[type] = "Error parsing csv file.";
                 }
             });
         };
@@ -202,7 +201,6 @@ angular.module('app', ['ui.grid'])
                     assignments[assignment] = index;
                 }
             });
-            console.log(assignments);
 
             /*
              * build list of students like:
@@ -218,8 +216,7 @@ angular.module('app', ['ui.grid'])
                 studentOrder.push(student[0].toLowerCase());
                 students[student[0].toLowerCase()] = _.zipObject(gradebook[0], student);
             });
-            console.log(students);
-            console.log(studentOrder);
+
 
             if (grades) {
                 // merge scores of students with grade file
