@@ -195,6 +195,8 @@ angular.module('app', ['ui.grid'])
                 output = [];
 
             // build list of assignments by index
+            // this way we can map column name to an array index
+            // in O(1)
             var assignments = {};
             _.each(gradebook[0], function(assignment, index) {
                 if (!isNaN(parseFloat(gradebook[1][index]))) {
@@ -205,35 +207,56 @@ angular.module('app', ['ui.grid'])
             /*
              * build list of students like:
              * {
-             *    "netid": {'Student': 'last, first', 'ID': '123432'...}
+             *    "netida": {'Student': 'last, first', 'ID': '123432'...},
+             *    "netidb": { ... }
              * }
              *
-             * but keep order in seperate array
+             * and order array like
+             *
+             * ["netidb", "netida"]
+             *
+             * this way we can iterate over the array of id's in
+             * the correct order (when we need to), but still freely
+             * get and modify a students info in O(1) by accessing with
+             * their netID
              */
             var students = {};
             var studentOrder = [];
+            var sisIndex = 3; // magic number, please don't change canvas..
             _.each(gradebook.slice(2), function(student) {
-                studentOrder.push(student[0].toLowerCase());
-                students[student[assignments['SIS Login ID']].toLowerCase()] = _.zipObject(gradebook[0], student);
+                var netId = student[sisIndex];
+
+                if (!netId) return;
+
+                netId = netId.toLowerCase();
+
+                studentOrder.push(netId);
+                students[netId] = _.zipObject(gradebook[0], student);
             });
 
 
+            // if there any grades, merge them with the gradebook
+            // data and add them to the canvas file
             if (grades) {
-                // merge scores of students with grade file
+
+                // read top row to get assignment names
                 var newAssignments = grades[0].slice(1);
+
+                // now for each remaining row (e.g. each student)
                 _.each(grades.slice(1), function(row) {
 
+                    // get the netID
                     // split on the @ sign so teachers can easily make
                     // student uw emails instead of netids
-                    var name = row[0].toLowerCase().split('@')[0];
+                    var netId = row[0].toLowerCase().split('@')[0];
 
                     _.each(row.slice(1), function(score, index) {
-                        if (!students[name]) {
-                            console.log('UHOH', name);
+                        if (!students[netId]) {
+                            console.log('UHOH', netId);
                             return;
                         }
-                        console.log('YAY', name);
-                        students[name][newAssignments[index]] = score;
+                        console.log('YAY', netId);
+                        students[netId][newAssignments[index]] = score;
                     });
                 });
             }
@@ -242,7 +265,9 @@ angular.module('app', ['ui.grid'])
             output.push(gradebook[0]);
             output.push(gradebook[1]);
 
+            // copy each students
             _.each(studentOrder, function(name) {
+                console.log(students[name]);
                 output.push(_.values(students[name]));
             });
 
