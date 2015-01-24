@@ -19,7 +19,7 @@
                     <p ng-if="errors.gradebook" class="error">{{errors.gradebook}}</p>
                 </div>
                 <div class="gridContainer" flex=1 grid="gradebook">
-                    <div upload="parse('gradebook', files)">Drag and drop file or click here to upload gradebook.</div>
+                    <div class="grid-label" upload="parse('gradebook', files)"><b>Drag and drop</b> file or <b>click</b> here to upload gradebook.</div>
                 </div>
             </div>
         </section>
@@ -30,11 +30,11 @@
                 <div class="side" direction="vertical" align="start">
                     <img src="src/image/add.png" class="image" />
                     <p class="info">Upload and review .csv grade file.</p>
-                    <p>Put student names in the left column, and assignment names in the top row.</p>
+                    <p>Put netids/emails in the left column, and assignment names in the top row.</p>
                     <p ng-if="errors.grades" class="error">{{errors.grades}}</p>
                 </div>
                 <div class="gridContainer" flex=1 grid="grades" >
-                    <div upload="parse('grades', files)">Drag and drop file or click here to upload grades.</div>
+                    <div class="grid-label" upload="parse('grades', files)"><b>Drag and drop</b> file or <b>click</b> here to upload grades.</div>
                 </div>
             </div>
         </section>
@@ -49,7 +49,9 @@
                     <p ng-if="errors.output" class="error">{{errors.output}}</p>
                 </div>
                 <div class="gridContainer" flex=1 grid="output">
-
+                    <div class="grid-label">
+                        Review the merged output.
+                    </div>
                 </div>
             </div>
         </section>

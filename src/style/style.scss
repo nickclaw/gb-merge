@@ -46,8 +46,7 @@ body {
     }
 }
 
-
-label[upload] {
+.grid-label {
     display: block;
     text-align: center;
     max-width: 60%;
@@ -56,6 +55,9 @@ label[upload] {
     background-color: white;
     border-radius: 15px;
     box-shadow: 0px 1px 5px rgba(200,200,200,.5);
+}
+
+label[upload] {
     cursor: pointer;
 
     transition: all .5s ease;
